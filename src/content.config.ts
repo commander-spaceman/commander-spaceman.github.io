@@ -20,6 +20,7 @@ const projects = defineCollection({
     tags: z.array(z.string()).default([]),
     url: z.string().optional(),
     image: z.string().optional(),
+    featured: z.boolean().default(false),
     status: z.enum(["active", "completed", "archived"]).default("active"),
   }),
 });

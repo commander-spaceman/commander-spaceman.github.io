@@ -5,6 +5,7 @@ pubDate: 2026-02-20
 tags: ["Sintal", "AI Research", "Simulation"]
 url: "https://github.com/commander-spaceman/geth-sim"
 image: "https://placehold.co/600x300/1a0a2e/ce93d8?text=Geth+Simulator"
+featured: true
 status: "completed"
 ---
 
