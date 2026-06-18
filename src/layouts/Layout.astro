@@ -24,14 +24,6 @@ const { title, description = SITE_DESCRIPTION } = Astro.props;
 				if (theme === 'dark') {
 					document.documentElement.classList.add('dark');
 				}
-				var fonts = [
-					{ f: '"Google Sans Code", sans-serif', s: '1.5rem' },
-					{ f: '"Micro 5", sans-serif', s: '2.25rem' },
-					{ f: '"Jacquard 12", sans-serif', s: '1.75rem' }
-				];
-				var fi = parseInt(localStorage.getItem('logoFont') || '0');
-				document.documentElement.style.setProperty('--font-logo', fonts[fi].f);
-				document.documentElement.style.setProperty('--font-logo-size', fonts[fi].s);
 			})();
 		</script>
 	</head>

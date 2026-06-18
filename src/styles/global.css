@@ -5,6 +5,7 @@
 @theme {
   --font-sans: "Google Sans Code", sans-serif;
   --font-mono: "Fira Code", monospace;
+  --font-pixel: "Micro 5", sans-serif;
 }
 
 .prose :not(pre) > code::before,
