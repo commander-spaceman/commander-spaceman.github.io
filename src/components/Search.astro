@@ -1,18 +1,28 @@
 ---
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog')).map((post) => ({
+const blogPosts = (await getCollection('blog')).map((post) => ({
 	title: post.data.title,
 	description: post.data.description,
-	slug: post.id,
+	slug: '/blog/' + post.id,
+	type: 'blog',
 }));
+
+const projectEntries = (await getCollection('projects')).map((project) => ({
+	title: project.data.title,
+	description: project.data.description,
+	slug: '/projects/' + project.id,
+	type: 'project',
+}));
+
+const entries = [...blogPosts, ...projectEntries];
 ---
 
 <div id="search-modal" class="fixed inset-0 z-50 hidden">
 	<div id="search-backdrop" class="absolute inset-0 bg-black/50"></div>
 	<div class="relative flex items-start justify-center pt-24 px-4">
 		<div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 w-full max-w-lg shadow-lg">
-			<input type="text" id="search-input" placeholder="Search posts..." class="w-full bg-transparent p-4 text-sm outline-none" autocomplete="off" />
+			<input type="text" id="search-input" placeholder="Search posts and projects..." class="w-full bg-transparent p-4 text-sm outline-none" autocomplete="off" />
 			<div id="search-results" class="hidden border-t border-gray-200 dark:border-gray-800 max-h-64 overflow-y-auto"></div>
 		</div>
 	</div>
@@ -30,7 +40,7 @@ const posts = (await getCollection('blog')).map((post) => ({
 	}
 </style>
 
-<script is:inline define:vars={{ posts }}>
+<script is:inline define:vars={{ entries }}>
 	var modal = document.getElementById('search-modal');
 	var input = document.getElementById('search-input');
 	var results = document.getElementById('search-results');
@@ -67,8 +77,8 @@ const posts = (await getCollection('blog')).map((post) => ({
 		}
 
 		var q = query.toLowerCase();
-		var filtered = posts.filter(function (p) {
-			return p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q);
+		var filtered = entries.filter(function (e) {
+			return e.title.toLowerCase().includes(q) || e.description.toLowerCase().includes(q);
 		});
 
 		results.classList.remove('hidden');
@@ -78,10 +88,14 @@ const posts = (await getCollection('blog')).map((post) => ({
 			return;
 		}
 
-		results.innerHTML = filtered.map(function (p) {
-			return '<a href="/blog/' + p.slug + '" class="block p-4 hover:bg-gray-50 dark:hover:bg-gray-800 no-underline transition-colors">' +
-				'<div class="text-sm font-semibold">' + highlight(p.title, query) + '</div>' +
-				'<div class="opacity-60 text-xs mt-1">' + highlight(p.description, query) + '</div>' +
+		results.innerHTML = filtered.map(function (e) {
+			var label = e.type === 'blog' ? 'post' : 'project';
+			return '<a href="' + e.slug + '" class="block p-4 hover:bg-gray-50 dark:hover:bg-gray-800 no-underline transition-colors">' +
+				'<div class="flex items-center gap-2">' +
+				'<span class="text-sm font-semibold">' + highlight(e.title, query) + '</span>' +
+				'<span class="text-[10px] uppercase tracking-wider opacity-40">' + label + '</span>' +
+				'</div>' +
+				'<div class="opacity-60 text-xs mt-1">' + highlight(e.description, query) + '</div>' +
 				'</a>';
 		}).join('');
 	}
