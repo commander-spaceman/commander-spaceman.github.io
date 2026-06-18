@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { SITE_TITLE } from '../consts';
 
 interface Props {
 	title: string;
@@ -30,7 +31,7 @@ const { title, description } = Astro.props;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:site_name" content="cmdr.blog" />
+<meta property="og:site_name" content={SITE_TITLE} />
 <meta property="og:locale" content="en_US" />
 
 <meta name="theme-color" content="#F3EAD3" media="(prefers-color-scheme: light)" />

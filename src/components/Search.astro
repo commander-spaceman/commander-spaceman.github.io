@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-
-const GITHUB_USER = 'commander-spaceman';
+import { GITHUB_USER } from '../consts';
 
 const blogPosts = (await getCollection('blog')).map((post) => ({
 	title: post.data.title,

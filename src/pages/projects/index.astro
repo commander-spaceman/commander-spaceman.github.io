@@ -1,8 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const FEATURED = ['pcc-toolkit', 'nara'];
-const GITHUB_USER = 'commander-spaceman';
+import { SITE_TITLE, GITHUB_USER, FEATURED_REPOS } from '../../consts';
 
 let repos: any[] = [];
 try {
@@ -13,11 +11,11 @@ try {
 } catch {}
 
 const publicRepos = repos.filter((r: any) => !r.fork);
-const featured = publicRepos.filter((r: any) => FEATURED.includes(r.name));
-const others = publicRepos.filter((r: any) => !FEATURED.includes(r.name));
+const featured = publicRepos.filter((r: any) => FEATURED_REPOS.includes(r.name));
+const others = publicRepos.filter((r: any) => !FEATURED_REPOS.includes(r.name));
 ---
 
-<Layout title="Projects - cmdr.blog">
+<Layout title={`Projects - ${SITE_TITLE}`}>
 	<h1 class="text-2xl font-bold mb-8">Projects</h1>
 
 	{featured.length > 0 && (

@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout title="cmdr.blog">
+<Layout title={SITE_TITLE}>
 	<section class="flex-1 flex items-center justify-center overflow-x-auto">
 		<div class="flex flex-col items-center gap-6">
 			<pre id="ascii-art" class="font-mono text-[1.3125rem] leading-tight">         ██                  ██
