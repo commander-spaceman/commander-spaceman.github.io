@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 
+const GITHUB_USER = 'commander-spaceman';
+
 const blogPosts = (await getCollection('blog')).map((post) => ({
 	title: post.data.title,
 	description: post.data.description,
@@ -8,12 +10,21 @@ const blogPosts = (await getCollection('blog')).map((post) => ({
 	type: 'blog',
 }));
 
-const projectEntries = (await getCollection('projects')).map((project) => ({
-	title: project.data.title,
-	description: project.data.description,
-	slug: '/projects/' + project.id,
-	type: 'project',
-}));
+let projectEntries: { title: string; description: string; slug: string; type: string }[] = [];
+try {
+	const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`);
+	if (response.ok) {
+		const repos = await response.json();
+		projectEntries = repos
+			.filter((r: any) => !r.fork)
+			.map((r: any) => ({
+				title: r.name,
+				description: r.description || 'No description',
+				slug: r.html_url,
+				type: 'project',
+			}));
+	}
+} catch {}
 
 const entries = [...blogPosts, ...projectEntries];
 ---
@@ -78,7 +89,8 @@ const entries = [...blogPosts, ...projectEntries];
 
 		results.innerHTML = filtered.map(function (e) {
 			var label = e.type === 'blog' ? 'post' : 'project';
-			return '<a href="' + e.slug + '" class="block p-4 hover:bg-[var(--ef-bg-hover)] no-underline transition-colors">' +
+			var external = e.type === 'project' ? ' target="_blank"' : '';
+			return '<a href="' + e.slug + '"' + external + ' class="block p-4 hover:bg-[var(--ef-bg-hover)] no-underline transition-colors">' +
 				'<div class="flex items-center gap-2">' +
 				'<span class="text-sm font-semibold">' + highlight(e.title, query) + '</span>' +
 				'<span class="text-[10px] uppercase tracking-wider opacity-40">' + label + '</span>' +

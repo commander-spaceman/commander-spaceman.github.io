@@ -1,19 +1,20 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 
-const allProjects = (await getCollection('projects')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const FEATURED = ['pcc-toolkit', 'nara'];
+const GITHUB_USER = 'commander-spaceman';
 
-const featured = allProjects.filter((p) => p.data.featured);
-const others = allProjects.filter((p) => !p.data.featured);
+let repos: any[] = [];
+try {
+	const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`);
+	if (response.ok) {
+		repos = await response.json();
+	}
+} catch {}
 
-const statusStyles = {
-	active: 'bg-[var(--ef-bg-green)] text-[var(--ef-green)]',
-	completed: 'bg-[var(--ef-bg-blue)] text-[var(--ef-blue)]',
-	archived: 'bg-[var(--ef-bg-dim)] text-[var(--ef-muted)]',
-};
+const publicRepos = repos.filter((r: any) => !r.fork);
+const featured = publicRepos.filter((r: any) => FEATURED.includes(r.name));
+const others = publicRepos.filter((r: any) => !FEATURED.includes(r.name));
 ---
 
 <Layout title="Projects - cmdr.blog">
@@ -23,21 +24,23 @@ const statusStyles = {
 		<section>
 			<h2 class="text-sm font-semibold uppercase tracking-wider opacity-50 mb-4">Featured</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-				{featured.map((project) => (
-					<a href={`/projects/${project.id}`} class="block no-underline bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] shadow-sm overflow-hidden group">
-						{project.data.image && (
-							<img src={project.data.image} alt="" class="w-full h-40 object-cover" />
-						)}
+				{featured.map((repo: any) => (
+					<a href={repo.html_url} target="_blank" class="block no-underline bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] shadow-sm overflow-hidden group">
 						<div class="p-4 flex flex-col gap-3">
 							<div class="flex items-start justify-between gap-2">
-								<h3 class="text-sm font-bold">{project.data.title}</h3>
-								<span class={`text-[10px] font-medium uppercase tracking-wider rounded-full px-2 py-0.5 shrink-0 ${statusStyles[project.data.status]}`}>{project.data.status}</span>
+								<h3 class="text-sm font-bold">{repo.name}</h3>
+								{repo.archived && (
+									<span class="text-[10px] font-medium uppercase tracking-wider rounded-full px-2 py-0.5 shrink-0 bg-[var(--ef-bg-dim)] text-[var(--ef-muted)]">archived</span>
+								)}
 							</div>
-							<p class="text-xs opacity-60 line-clamp-2">{project.data.description}</p>
+							<p class="text-xs opacity-60 line-clamp-2">{repo.description || 'No description'}</p>
 							<div class="flex flex-wrap gap-1.5">
-								{project.data.tags.map((tag) => (
-									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">{tag}</span>
-								))}
+								{repo.language && (
+									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">{repo.language}</span>
+								)}
+								{repo.stargazers_count > 0 && (
+									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">★ {repo.stargazers_count}</span>
+								)}
 							</div>
 							<div class="flex items-center justify-end gap-2 pt-1">
 								<span class="text-xs font-medium opacity-70 group-hover:opacity-100 transition-opacity">Explore</span>
@@ -65,21 +68,23 @@ const statusStyles = {
 		<section>
 			<h2 class="text-sm font-semibold uppercase tracking-wider opacity-50 mb-4">Keep looking</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-				{others.map((project) => (
-					<a href={`/projects/${project.id}`} class="block no-underline bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] shadow-sm overflow-hidden group">
-						{project.data.image && (
-							<img src={project.data.image} alt="" class="w-full h-40 object-cover" />
-						)}
+				{others.map((repo: any) => (
+					<a href={repo.html_url} target="_blank" class="block no-underline bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] shadow-sm overflow-hidden group">
 						<div class="p-4 flex flex-col gap-3">
 							<div class="flex items-start justify-between gap-2">
-								<h3 class="text-sm font-bold">{project.data.title}</h3>
-								<span class={`text-[10px] font-medium uppercase tracking-wider rounded-full px-2 py-0.5 shrink-0 ${statusStyles[project.data.status]}`}>{project.data.status}</span>
+								<h3 class="text-sm font-bold">{repo.name}</h3>
+								{repo.archived && (
+									<span class="text-[10px] font-medium uppercase tracking-wider rounded-full px-2 py-0.5 shrink-0 bg-[var(--ef-bg-dim)] text-[var(--ef-muted)]">archived</span>
+								)}
 							</div>
-							<p class="text-xs opacity-60 line-clamp-2">{project.data.description}</p>
+							<p class="text-xs opacity-60 line-clamp-2">{repo.description || 'No description'}</p>
 							<div class="flex flex-wrap gap-1.5">
-								{project.data.tags.map((tag) => (
-									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">{tag}</span>
-								))}
+								{repo.language && (
+									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">{repo.language}</span>
+								)}
+								{repo.stargazers_count > 0 && (
+									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">★ {repo.stargazers_count}</span>
+								)}
 							</div>
 							<div class="flex items-center justify-end gap-2 pt-1">
 								<span class="text-xs font-medium opacity-70 group-hover:opacity-100 transition-opacity">Explore</span>
@@ -97,5 +102,9 @@ const statusStyles = {
 				))}
 			</div>
 		</section>
+	)}
+
+	{publicRepos.length === 0 && (
+		<p class="opacity-60">No projects found.</p>
 	)}
 </Layout>
