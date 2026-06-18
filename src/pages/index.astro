@@ -4,10 +4,10 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="cmdr.blog">
 	<section class="flex-1 flex items-center justify-center overflow-x-auto">
-		<pre id="ascii-art" class="font-mono text-xs leading-tight">              ██                              ██                       ██
-██   ██ ▄█▀█▄ ██ ▄████ ▄███▄ ███▄███▄ ▄█▀█▄   ████▄ ▄█▀█▄ ████▄ ▄█▀█▄  ██
-██ █ ██ ██▄█▀ ██ ██    ██ ██ ██ ██ ██ ██▄█▀   ██ ██ ██▄█▀ ██ ▀▀ ██▄█▀  ▀▀
- ██▀██  ▀█▄▄▄ ██ ▀████ ▀███▀ ██ ██ ██ ▀█▄▄▄   ██ ██ ▀█▄▄▄ ██    ▀█▄▄▄  ██</pre>
+		<pre id="ascii-art" class="font-mono text-xs leading-tight">         ██                  ██
+ ▀▀█▄ ▄████      ▀▀█▄ ▄█▀▀▀ ▀██▀▀ ████▄  ▀▀█▄
+▄█▀██ ██ ██     ▄█▀██ ▀███▄  ██   ██ ▀▀ ▄█▀██
+▀█▄██ ▀████     ▀█▄██ ▄▄▄█▀  ██   ██    ▀█▄██</pre>
 	</section>
 </Layout>
 
@@ -26,16 +26,18 @@ import Layout from '../layouts/Layout.astro';
 <script>
 	const pre = document.getElementById('ascii-art');
 	if (pre) {
-		const text = pre.textContent || '';
-		let i = 0;
+		const lines = (pre.textContent || '').split('\n');
 		let html = '';
-		for (const char of text) {
-			if (char !== ' ' && char !== '\n') {
-				html += `<span style="animation-delay:${i * 30}ms">${char}</span>`;
-				i++;
-			} else {
-				html += char;
+		for (const line of lines) {
+			for (let col = 0; col < line.length; col++) {
+				const char = line[col];
+				if (char !== ' ') {
+					html += `<span style="animation-delay:${col * 30}ms">${char}</span>`;
+				} else {
+					html += char;
+				}
 			}
+			html += '\n';
 		}
 		pre.innerHTML = html;
 	}
