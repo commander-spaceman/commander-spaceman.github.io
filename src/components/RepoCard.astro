@@ -1,0 +1,35 @@
+---
+import ArrowLink from './ArrowLink.astro';
+
+interface Props {
+	name: string;
+	description: string | null;
+	html_url: string;
+	language: string | null;
+	stargazers_count: number;
+	archived: boolean;
+}
+
+const { name, description, html_url, language, stargazers_count, archived } = Astro.props;
+---
+
+<a href={html_url} target="_blank" class="block no-underline bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] shadow-sm overflow-hidden group">
+	<div class="p-4 flex flex-col gap-3">
+		<div class="flex items-start justify-between gap-2">
+			<h3 class="text-sm font-bold">{name}</h3>
+			{archived && (
+				<span class="text-[10px] font-medium uppercase tracking-wider rounded-full px-2 py-0.5 shrink-0 bg-[var(--ef-bg-dim)] text-[var(--ef-muted)]">archived</span>
+			)}
+		</div>
+		<p class="text-xs opacity-60 line-clamp-2">{description || 'No description'}</p>
+		<div class="flex flex-wrap gap-1.5">
+			{language && (
+				<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">{language}</span>
+			)}
+			{stargazers_count > 0 && (
+				<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">&starf; {stargazers_count}</span>
+			)}
+		</div>
+		<ArrowLink label="Explore" />
+	</div>
+</a>
