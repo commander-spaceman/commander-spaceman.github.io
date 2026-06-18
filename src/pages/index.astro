@@ -3,8 +3,40 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="cmdr.blog">
-	<section class="py-16 text-center">
-		<h1 class="font-display text-5xl mb-4">cmdr.blog</h1>
-		<p class="text-sm opacity-60">code, projects, and the galaxy.</p>
+	<section class="flex-1 flex items-center justify-center overflow-x-auto">
+		<pre id="ascii-art" class="font-mono text-xs leading-tight">              ██                              ██                       ██
+██   ██ ▄█▀█▄ ██ ▄████ ▄███▄ ███▄███▄ ▄█▀█▄   ████▄ ▄█▀█▄ ████▄ ▄█▀█▄  ██
+██ █ ██ ██▄█▀ ██ ██    ██ ██ ██ ██ ██ ██▄█▀   ██ ██ ██▄█▀ ██ ▀▀ ██▄█▀  ▀▀
+ ██▀██  ▀█▄▄▄ ██ ▀████ ▀███▀ ██ ██ ██ ▀█▄▄▄   ██ ██ ▀█▄▄▄ ██    ▀█▄▄▄  ██</pre>
 	</section>
 </Layout>
+
+<style is:global>
+	@keyframes color-cycle {
+		0%, 100% { color: #f87171; }
+		25% { color: #facc15; }
+		50% { color: #34d399; }
+		75% { color: #60a5fa; }
+	}
+	#ascii-art span {
+		animation: color-cycle 3s infinite;
+	}
+</style>
+
+<script>
+	const pre = document.getElementById('ascii-art');
+	if (pre) {
+		const text = pre.textContent || '';
+		let i = 0;
+		let html = '';
+		for (const char of text) {
+			if (char !== ' ' && char !== '\n') {
+				html += `<span style="animation-delay:${i * 30}ms">${char}</span>`;
+				i++;
+			} else {
+				html += char;
+			}
+		}
+		pre.innerHTML = html;
+	}
+</script>
