@@ -11,9 +11,9 @@ const featured = allProjects.filter((p) => p.data.featured);
 const others = allProjects.filter((p) => !p.data.featured);
 
 const statusStyles = {
-	active: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
-	completed: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-	archived: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',
+	active: 'bg-[var(--ef-bg-green)] text-[var(--ef-green)]',
+	completed: 'bg-[var(--ef-bg-blue)] text-[var(--ef-blue)]',
+	archived: 'bg-[var(--ef-bg-dim)] text-[var(--ef-muted)]',
 };
 ---
 
@@ -26,7 +26,7 @@ const statusStyles = {
 			<h2 class="text-sm font-semibold uppercase tracking-wider opacity-50 mb-4">Featured</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 				{featured.map((project) => (
-					<a href={`/projects/${project.id}`} class="block no-underline bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden group">
+					<a href={`/projects/${project.id}`} class="block no-underline bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] shadow-sm overflow-hidden group">
 						{project.data.image && (
 							<img src={project.data.image} alt="" class="w-full h-40 object-cover" />
 						)}
@@ -38,7 +38,7 @@ const statusStyles = {
 							<p class="text-xs opacity-60 line-clamp-2">{project.data.description}</p>
 							<div class="flex flex-wrap gap-1.5">
 								{project.data.tags.map((tag) => (
-									<span class="text-[10px] opacity-50 border border-gray-300 dark:border-gray-700 rounded-full px-2 py-0.5">{tag}</span>
+									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">{tag}</span>
 								))}
 							</div>
 							<div class="flex items-center justify-end gap-2 pt-1">
@@ -60,7 +60,7 @@ const statusStyles = {
 	)}
 
 	{featured.length > 0 && others.length > 0 && (
-		<hr class="my-10 border-gray-200 dark:border-gray-800" />
+		<hr class="my-10 border-[var(--ef-border)]" />
 	)}
 
 	{others.length > 0 && (
@@ -68,7 +68,7 @@ const statusStyles = {
 			<h2 class="text-sm font-semibold uppercase tracking-wider opacity-50 mb-4">Keep looking</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 				{others.map((project) => (
-					<a href={`/projects/${project.id}`} class="block no-underline bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden group">
+					<a href={`/projects/${project.id}`} class="block no-underline bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] shadow-sm overflow-hidden group">
 						{project.data.image && (
 							<img src={project.data.image} alt="" class="w-full h-40 object-cover" />
 						)}
@@ -80,7 +80,7 @@ const statusStyles = {
 							<p class="text-xs opacity-60 line-clamp-2">{project.data.description}</p>
 							<div class="flex flex-wrap gap-1.5">
 								{project.data.tags.map((tag) => (
-									<span class="text-[10px] opacity-50 border border-gray-300 dark:border-gray-700 rounded-full px-2 py-0.5">{tag}</span>
+									<span class="text-[10px] opacity-50 border border-[var(--ef-border)] rounded-full px-2 py-0.5">{tag}</span>
 								))}
 							</div>
 							<div class="flex items-center justify-end gap-2 pt-1">

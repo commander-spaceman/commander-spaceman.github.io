@@ -21,24 +21,12 @@ const entries = [...blogPosts, ...projectEntries];
 <div id="search-modal" class="fixed inset-0 z-50 hidden">
 	<div id="search-backdrop" class="absolute inset-0 bg-black/50"></div>
 	<div class="relative flex items-start justify-center pt-24 px-4">
-		<div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 w-full max-w-lg shadow-lg">
+		<div class="bg-[var(--ef-bg-card)] rounded-lg border border-[var(--ef-border)] w-full max-w-lg shadow-lg">
 			<input type="text" id="search-input" placeholder="Search posts and projects..." class="w-full bg-transparent p-4 text-sm outline-none" autocomplete="off" />
-			<div id="search-results" class="hidden border-t border-gray-200 dark:border-gray-800 max-h-64 overflow-y-auto"></div>
+			<div id="search-results" class="hidden border-t border-[var(--ef-border)] max-h-64 overflow-y-auto"></div>
 		</div>
 	</div>
 </div>
-
-<style is:global>
-	#search-results mark {
-		background-color: #facc15;
-		color: inherit;
-		border-radius: 2px;
-		padding: 0 2px;
-	}
-	.dark #search-results mark {
-		background-color: #854d0e;
-	}
-</style>
 
 <script is:inline define:vars={{ entries }}>
 	var modal = document.getElementById('search-modal');
@@ -90,7 +78,7 @@ const entries = [...blogPosts, ...projectEntries];
 
 		results.innerHTML = filtered.map(function (e) {
 			var label = e.type === 'blog' ? 'post' : 'project';
-			return '<a href="' + e.slug + '" class="block p-4 hover:bg-gray-50 dark:hover:bg-gray-800 no-underline transition-colors">' +
+			return '<a href="' + e.slug + '" class="block p-4 hover:bg-[var(--ef-bg-hover)] no-underline transition-colors">' +
 				'<div class="flex items-center gap-2">' +
 				'<span class="text-sm font-semibold">' + highlight(e.title, query) + '</span>' +
 				'<span class="text-[10px] uppercase tracking-wider opacity-40">' + label + '</span>' +

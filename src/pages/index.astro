@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
  ▀▀█▄ ▄████      ▀▀█▄ ▄█▀▀▀ ▀██▀▀ ████▄  ▀▀█▄
 ▄█▀██ ██ ██     ▄█▀██ ▀███▄  ██   ██ ▀▀ ▄█▀██
 ▀█▄██ ▀████     ▀█▄██ ▄▄▄█▀  ██   ██    ▀█▄██</pre>
-			<pre class="font-mono text-[0.4375rem] leading-tight text-black dark:text-white">              ██                                    ██                         ██  ██
+			<pre class="font-mono text-[0.4375rem] leading-tight text-[var(--ef-fg)]">              ██                                    ██                         ██  ██
 ██   ██ ▄█▀█▄ ██ ▄████ ▄███▄ ███▄███▄ ▄█▀█▄    ▀▀█▄ ████▄ ▄███▄  ▀▀█▄ ████▄ ▄████  ██
 ██ █ ██ ██▄█▀ ██ ██    ██ ██ ██ ██ ██ ██▄█▀   ▄█▀██ ██ ██ ██ ██ ▄█▀██ ██ ▀▀ ██ ██  ▀▀
  ██▀██  ▀█▄▄▄ ██ ▀████ ▀███▀ ██ ██ ██ ▀█▄▄▄   ▀█▄██ ████▀ ▀███▀ ▀█▄██ ██    ▀████  ██</pre>
@@ -19,10 +19,10 @@ import Layout from '../layouts/Layout.astro';
 
 <style is:global>
 	@keyframes color-cycle {
-		0%, 100% { color: #f87171; }
-		25% { color: #facc15; }
-		50% { color: #34d399; }
-		75% { color: #60a5fa; }
+		0%, 100% { color: var(--ef-red); }
+		25% { color: var(--ef-yellow); }
+		50% { color: var(--ef-green); }
+		75% { color: var(--ef-blue); }
 	}
 	#ascii-art span {
 		animation: color-cycle 3s infinite;

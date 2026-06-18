@@ -14,7 +14,7 @@ const posts = (await getCollection('blog')).sort(
 	<ul class="flex flex-col gap-4">
 		{posts.map((post) => (
 			<li>
-				<a href={`/blog/${post.id}`} class="block no-underline border border-gray-200 dark:border-gray-800 rounded-lg p-5 bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group flex items-center justify-between gap-4">
+				<a href={`/blog/${post.id}`} class="block no-underline border border-[var(--ef-border)] rounded-lg p-5 bg-[var(--ef-bg-card)] hover:bg-[var(--ef-bg-hover)] transition-colors group flex items-center justify-between gap-4">
 					<div>
 						<h2 class="text-base font-semibold">{post.data.title}</h2>
 						<div class="mt-4 opacity-50">
