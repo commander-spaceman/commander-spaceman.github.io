@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
 import { SITE_DESCRIPTION } from '../consts';
 
 interface Props {
@@ -32,5 +33,6 @@ const { title, description = SITE_DESCRIPTION } = Astro.props;
 			<slot />
 		</main>
 		<Footer />
+		<Search />
 	</body>
 </html>
