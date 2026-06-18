@@ -3,7 +3,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-display: "Tiny5", sans-serif;
   --font-sans: "Google Sans Code", sans-serif;
   --font-mono: "Fira Code", monospace;
 }
