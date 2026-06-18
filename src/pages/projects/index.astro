@@ -8,7 +8,9 @@ try {
 	if (response.ok) {
 		repos = await response.json();
 	}
-} catch {}
+} catch (e) {
+	console.error('Failed to fetch GitHub repos:', e);
+}
 
 const publicRepos = repos.filter((r: any) => !r.fork);
 const featured = publicRepos.filter((r: any) => FEATURED_REPOS.includes(r.name));

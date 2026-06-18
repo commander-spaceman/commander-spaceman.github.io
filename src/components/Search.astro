@@ -23,7 +23,9 @@ try {
 				type: 'project',
 			}));
 	}
-} catch {}
+} catch (e) {
+	console.error('Failed to fetch GitHub repos:', e);
+}
 
 const entries = [...blogPosts, ...projectEntries];
 ---
