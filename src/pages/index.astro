@@ -5,12 +5,13 @@ import { SITE_TITLE } from '../consts';
 
 <Layout title={SITE_TITLE}>
 	<section class="flex-1 flex items-center justify-center overflow-x-auto">
-		<div class="flex flex-col items-center gap-6">
-			<pre id="ascii-art" class="font-mono text-[1.3125rem] leading-tight">         ██                  ██
+		<div class="flex flex-col items-center gap-4 sm:gap-6">
+			<pre id="ascii-art" class="font-mono text-[0.55rem] sm:text-[1.3125rem] leading-tight">         ██                  ██
  ▀▀█▄ ▄████      ▀▀█▄ ▄█▀▀▀ ▀██▀▀ ████▄  ▀▀█▄
 ▄█▀██ ██ ██     ▄█▀██ ▀███▄  ██   ██ ▀▀ ▄█▀██
 ▀█▄██ ▀████     ▀█▄██ ▄▄▄█▀  ██   ██    ▀█▄██</pre>
-			<pre class="font-mono text-[0.4375rem] leading-tight text-[var(--ef-fg)]">              ██                                    ██                         ██  ██
+			<p class="sm:hidden text-xs opacity-40">welcome aboard</p>
+			<pre class="hidden sm:block font-mono text-[0.4375rem] leading-tight text-[var(--ef-fg)]">              ██                                    ██                         ██  ██
 ██   ██ ▄█▀█▄ ██ ▄████ ▄███▄ ███▄███▄ ▄█▀█▄    ▀▀█▄ ████▄ ▄███▄  ▀▀█▄ ████▄ ▄████  ██
 ██ █ ██ ██▄█▀ ██ ██    ██ ██ ██ ██ ██ ██▄█▀   ▄█▀██ ██ ██ ██ ██ ▄█▀██ ██ ▀▀ ██ ██  ▀▀
  ██▀██  ▀█▄▄▄ ██ ▀████ ▀███▀ ██ ██ ██ ▀█▄▄▄   ▀█▄██ ████▀ ▀███▀ ▀█▄██ ██    ▀████  ██</pre>
