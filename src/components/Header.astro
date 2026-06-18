@@ -1,10 +1,9 @@
 ---
-import { SITE_TITLE } from '../consts';
 ---
 
 <header>
 	<nav class="container mx-auto max-w-3xl px-6 py-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-800">
-		<a href="/" class="text-2xl font-bold no-underline">{SITE_TITLE}</a>
+		<a href="/" id="logo" class="font-bold no-underline h-9 inline-flex items-center" style="font-family: var(--font-logo); font-size: var(--font-logo-size)">cmdr</a>
 		<div class="flex items-center gap-6">
 			<a href="/blog" class="text-sm opacity-70 hover:opacity-100 no-underline transition-opacity">blog</a>
 			<a href="/projects" class="text-sm opacity-70 hover:opacity-100 no-underline transition-opacity">projects</a>
@@ -16,3 +15,19 @@ import { SITE_TITLE } from '../consts';
 		</div>
 	</nav>
 </header>
+
+<script>
+	document.getElementById('logo')?.addEventListener('contextmenu', (e) => {
+		e.preventDefault();
+		const fonts = [
+			{ f: '"Google Sans Code", sans-serif', s: '1.5rem' },
+			{ f: '"Micro 5", sans-serif', s: '2.25rem' },
+			{ f: '"Jacquard 12", sans-serif', s: '1.75rem' },
+		];
+		let index = parseInt(localStorage.getItem('logoFont') || '0');
+		index = (index + 1) % fonts.length;
+		localStorage.setItem('logoFont', index.toString());
+		document.documentElement.style.setProperty('--font-logo', fonts[index].f);
+		document.documentElement.style.setProperty('--font-logo-size', fonts[index].s);
+	});
+</script>
