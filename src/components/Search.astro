@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 const blogPosts = (await getCollection('blog')).map((post) => ({
 	title: post.data.title,
 	description: post.data.description,
-	slug: '/blog/' + post.id,
+	slug: '/posts/' + post.id,
 	type: 'blog',
 }));
 

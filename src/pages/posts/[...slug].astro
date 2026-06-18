@@ -16,7 +16,7 @@ const { Content } = await render(post);
 ---
 
 <Layout title={`${post.data.title} - cmdr.blog`} description={post.data.description}>
-	<Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: post.data.title }]} />
+	<Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Posts', href: '/posts' }, { label: post.data.title }]} />
 	<article>
 		<header class="mb-8">
 			<time class="text-sm opacity-50" datetime={post.data.pubDate.toISOString()}>

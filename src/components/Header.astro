@@ -6,7 +6,7 @@ const isHome = Astro.url.pathname === '/';
 	<nav class="container mx-auto max-w-3xl px-6 py-4 flex items-center justify-between border-b border-[var(--ef-border)]">
 		<a href="/" class={`font-bold no-underline h-9 inline-flex items-center ${isHome ? 'font-pixel text-4xl' : 'text-2xl'}`}>cmdr</a>
 		<div class="flex items-center gap-6">
-			<a href="/blog" class="text-sm opacity-70 hover:opacity-100 no-underline transition-opacity">blog</a>
+			<a href="/posts" class="text-sm opacity-70 hover:opacity-100 no-underline transition-opacity">posts</a>
 			<a href="/projects" class="text-sm opacity-70 hover:opacity-100 no-underline transition-opacity">projects</a>
 			<button id="search-btn" class="opacity-70 hover:opacity-100 transition-opacity cursor-pointer" aria-label="Search">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
